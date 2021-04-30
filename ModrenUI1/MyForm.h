@@ -18,6 +18,7 @@ namespace ModrenUI1 {
 		MyForm(void)
 		{
 			InitializeComponent();
+			panel_TnC->Hide();
 			//
 			//TODO: Add the constructor code here
 			//
@@ -49,6 +50,12 @@ namespace ModrenUI1 {
 	private: System::Windows::Forms::Button^ signin;
 
 	private: System::Windows::Forms::Button^ Exit;
+	private: System::Windows::Forms::Panel^ panel_TnC;
+
+	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Button^ OK_Panel;
+
 
 
 	protected:
@@ -78,6 +85,11 @@ namespace ModrenUI1 {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->signin = (gcnew System::Windows::Forms::Button());
 			this->Exit = (gcnew System::Windows::Forms::Button());
+			this->panel_TnC = (gcnew System::Windows::Forms::Panel());
+			this->OK_Panel = (gcnew System::Windows::Forms::Button());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->panel_TnC->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// label1
@@ -128,6 +140,7 @@ namespace ModrenUI1 {
 			this->username->Name = L"username";
 			this->username->Size = System::Drawing::Size(416, 35);
 			this->username->TabIndex = 3;
+			this->username->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::UserName_KeyDown);
 			// 
 			// password
 			// 
@@ -140,6 +153,7 @@ namespace ModrenUI1 {
 			this->password->Size = System::Drawing::Size(416, 35);
 			this->password->TabIndex = 4;
 			this->password->UseSystemPasswordChar = true;
+			this->password->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::Password_KeyDown);
 			// 
 			// panel1
 			// 
@@ -223,12 +237,71 @@ namespace ModrenUI1 {
 			this->Exit->UseVisualStyleBackColor = false;
 			this->Exit->Click += gcnew System::EventHandler(this, &MyForm::Exit_Click);
 			// 
+			// panel_TnC
+			// 
+			this->panel_TnC->BackColor = System::Drawing::Color::Transparent;
+			this->panel_TnC->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->panel_TnC->Controls->Add(this->OK_Panel);
+			this->panel_TnC->Controls->Add(this->textBox1);
+			this->panel_TnC->Controls->Add(this->label5);
+			this->panel_TnC->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->panel_TnC->Location = System::Drawing::Point(0, 0);
+			this->panel_TnC->Name = L"panel_TnC";
+			this->panel_TnC->Size = System::Drawing::Size(1030, 652);
+			this->panel_TnC->TabIndex = 11;
+			this->panel_TnC->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::MyForm_MouseDown);
+			this->panel_TnC->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::MyForm_MouseMove);
+			this->panel_TnC->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::MyForm_MouseUp);
+			// 
+			// OK_Panel
+			// 
+			this->OK_Panel->BackColor = System::Drawing::Color::Blue;
+			this->OK_Panel->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->OK_Panel->FlatAppearance->BorderColor = System::Drawing::Color::Blue;
+			this->OK_Panel->FlatAppearance->MouseDownBackColor = System::Drawing::Color::MidnightBlue;
+			this->OK_Panel->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->OK_Panel->Font = (gcnew System::Drawing::Font(L"Segoe UI", 10.75F));
+			this->OK_Panel->ForeColor = System::Drawing::Color::White;
+			this->OK_Panel->Location = System::Drawing::Point(377, 553);
+			this->OK_Panel->Name = L"OK_Panel";
+			this->OK_Panel->Size = System::Drawing::Size(207, 58);
+			this->OK_Panel->TabIndex = 10;
+			this->OK_Panel->Text = L"OK";
+			this->OK_Panel->UseVisualStyleBackColor = false;
+			this->OK_Panel->Click += gcnew System::EventHandler(this, &MyForm::OK_Panel_Click);
+			// 
+			// textBox1
+			// 
+			this->textBox1->BackColor = System::Drawing::Color::Black;
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 9, System::Drawing::FontStyle::Bold));
+			this->textBox1->ForeColor = System::Drawing::Color::White;
+			this->textBox1->Location = System::Drawing::Point(96, 172);
+			this->textBox1->Multiline = true;
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->ReadOnly = true;
+			this->textBox1->Size = System::Drawing::Size(488, 375);
+			this->textBox1->TabIndex = 1;
+			this->textBox1->Text = resources->GetString(L"textBox1.Text");
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Segoe UI Semibold", 28.75F, System::Drawing::FontStyle::Bold));
+			this->label5->ForeColor = System::Drawing::Color::White;
+			this->label5->Location = System::Drawing::Point(82, 104);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(502, 65);
+			this->label5->TabIndex = 0;
+			this->label5->Text = L"Terms and Conditions";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::None;
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
 			this->ClientSize = System::Drawing::Size(1030, 652);
+			this->Controls->Add(this->panel_TnC);
 			this->Controls->Add(this->Exit);
 			this->Controls->Add(this->signin);
 			this->Controls->Add(this->label4);
@@ -246,6 +319,11 @@ namespace ModrenUI1 {
 			this->Name = L"MyForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"MyForm";
+			this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::MyForm_MouseDown);
+			this->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::MyForm_MouseMove);
+			this->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::MyForm_MouseUp);
+			this->panel_TnC->ResumeLayout(false);
+			this->panel_TnC->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -256,6 +334,7 @@ namespace ModrenUI1 {
 	private: System::Void label2_Click(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void label4_Click(System::Object^ sender, System::EventArgs^ e) {
+		panel_TnC->Show();
 	}
 	
 
@@ -273,6 +352,7 @@ private: System::Void Exit_Click(System::Object^ sender, System::EventArgs^ e) {
 private: System::Void signin_Click(System::Object^ sender, System::EventArgs^ e) {
 	if (username->Text == "admin") {
 		if (password -> Text == "root") {
+			MessageBox::Show("Access Granted", "Successfully Signed In", MessageBoxButtons::OK, MessageBoxIcon::Information);
 			Application::Exit();
 		}
 		else {
@@ -281,6 +361,41 @@ private: System::Void signin_Click(System::Object^ sender, System::EventArgs^ e)
 	}
 	else {
 		MessageBox::Show("Incorrect Username", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+}
+private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void OK_Panel_Click(System::Object^ sender, System::EventArgs^ e) {
+	panel_TnC->Hide();
+}
+
+//Dragging the form
+	   bool dragging;
+	   Point offset;
+private: System::Void MyForm_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	//enable dragging and get mouse postition
+	dragging = true;
+	offset.X = e->X;
+	offset.Y = e->Y;
+
+}
+private: System::Void MyForm_MouseMove(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	if(dragging){
+	Point currentScreenPosition = PointToScreen(Point(e->X, e->Y));
+	Location = Point(currentScreenPosition.X - offset.X, currentScreenPosition.Y - offset.Y);
+	}
+}
+private: System::Void MyForm_MouseUp(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+	dragging = false;
+}
+private: System::Void UserName_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+	if (e->KeyValue == (int)Keys::Enter) {
+		password->Focus();
+	}
+}
+private: System::Void Password_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+	if (e->KeyValue == (int)Keys::Enter) {
+		signin->PerformClick();
 	}
 }
 };
